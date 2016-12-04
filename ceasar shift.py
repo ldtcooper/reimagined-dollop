@@ -30,7 +30,7 @@ def shift_details(crypt_type):
             except ValueError:
                 print("That is not an integer!")
                 continue
-            return shift
+            return int(shift)
     elif crypt_type == 'D':
         while True:
             shift = input("How many letters were shifted during encryption?")
@@ -41,7 +41,7 @@ def shift_details(crypt_type):
             except ValueError:
                 print("That is not an integer!")
                 continue
-            return shift
+            return int(shift)
 
 def encrypt(plaintext, key):
     """Runs the encryption by adding the key to each letter of the plaintext"""
@@ -64,3 +64,33 @@ def encrypt(plaintext, key):
             cipherlist.append(char)
     print(''.join(cipherlist))
 
+def decrypt(ciphertext, key):
+    """Runs the decryption by subtracting the key from each letter of the ciphertext"""
+    cipherlist = []
+    for char in ciphertext:
+        x = ord(char)
+        # if x is a capital letter, it gets encrypted
+        if x in range(65,91):
+            # turns each letter into a umber 0 - 25
+            x -= 65
+            # subtracts the key from the plaintext letter by letter
+            x -= key
+            # loops back to the beginning if the encrypted letter goes beyond Z
+            if x > 25:
+                x -= 26
+            x += 65
+            cipherlist.append(chr(x))
+        # for non-letters, nothing happens
+        else:
+            cipherlist.append(char)
+    print(''.join(cipherlist))
+
+text = ask()
+cryption = cipher_details()
+shift = shift_details(cryption)
+print(shift)
+
+if cryption == 'E':
+    encrypt(text, shift)
+elif cryption == 'D':
+    decrypt(text, shift)
