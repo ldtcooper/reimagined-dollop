@@ -43,4 +43,24 @@ def shift_details(crypt_type):
                 continue
             return shift
 
-print(shift_details('D'))
+def encrypt(plaintext, key):
+    """Runs the encryption by adding the key to each letter of the plaintext"""
+    cipherlist = []
+    for char in plaintext:
+        x = ord(char)
+        # if x is a capital letter, it gets encrypted
+        if x in range(65,91):
+            # turns each letter into a umber 0 - 25
+            x -= 65
+            # adds the key to the plaintext letter by letter
+            x += key
+            # loops back to the beginning if the encrypted letter goes beyond Z
+            if x > 25:
+                x -= 26
+            x += 65
+            cipherlist.append(chr(x))
+        # for non-letters, nothing happens
+        else:
+            cipherlist.append(char)
+    print(''.join(cipherlist))
+
