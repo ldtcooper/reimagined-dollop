@@ -88,7 +88,6 @@ def decrypt(ciphertext, key):
 text = ask()
 cryption = cipher_details()
 shift = shift_details(cryption)
-print(shift)
 
 if cryption == 'E':
     encrypt(text, shift)
