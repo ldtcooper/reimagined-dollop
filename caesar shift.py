@@ -76,8 +76,8 @@ def decrypt(ciphertext, key):
             # subtracts the key from the plaintext letter by letter
             x -= key
             # loops back to the beginning if the encrypted letter goes beyond Z
-            if x > 25:
-                x -= 26
+            if x < 0:
+                x += 26
             x += 65
             cipherlist.append(chr(x))
         # for non-letters, nothing happens
