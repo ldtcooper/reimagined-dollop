@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # Random walk generator programmed for my Introduction to Python class at UC Santa Cruz in Fall 2016
+# Programmed very early in the quarter, and before we had knowledge of any of Python's more complicated data structures
 
 # necessary modules
 import math
