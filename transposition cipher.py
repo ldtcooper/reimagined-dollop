@@ -20,3 +20,19 @@ def cipher_details():
         elif cryption[0] == 'd' or cryption[0] == 'D':
             return 'D'
 
+def keymaker (text_length):
+    """Asks the user for a key to en/decrypt the text"""
+    while True:
+        try:
+            key = int(input("What numerical key would you like to use? (Integers shorter than the message only)"))
+        # asks for a new key if the inputted key is not an integer
+        except:
+            print("That was not a valid key. Please enter an integer.")
+            continue
+        # asks for a new key if the inputted key is too long
+        if key > text_length:
+            print("That was not a valid key. Please enter an integer larger than the length of the text.")
+            continue
+        return key
+
+
