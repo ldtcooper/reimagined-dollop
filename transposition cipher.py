@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
+import math
+
 # modified from caesar shift program
 def ask():
     """Function to ask for a piece of plaintext, turn its letters into capital letters, and remove spaces"""
-    plaintext = input("What message would you like to encrypt?")
-    plaintext = plaintext.upper().replace(" ", "")
+    plaintext = input("What message would you like to encrypt/decrypt?")
+    plaintext = plaintext.upper()
     return plaintext
 
 # taken from caesar shift program
@@ -35,15 +37,25 @@ def keymaker (text_length):
             continue
         return key
 
-def grid_gen(plaintext, key):
-    """Creates a list of lists to do the encryption"""
+def grid_gen(plaintext, key, cryp):
+    """Creates a list of lists to do the en/decryption"""
     grid = []
-    while True:
-        grid.append([])
-        if len(grid) * key < len(plaintext):
-            continue
-        else:
-            return grid
+    # encryption grid
+    if cryp == 'E':
+        while True:
+            grid.append([])
+            if len(grid) * key < len(plaintext):
+                continue
+            else:
+                return grid
+    # decryption grid
+    elif cryp == 'D':
+        while True:
+            grid.append([])
+            if len(grid) < key:
+                continue
+            else:
+                return grid
 
 def encryption(plaintext, grid, key):
     """Encrypts the plaintext using a grid of a size determined by the grid_gen function"""
@@ -72,10 +84,31 @@ def encryption(plaintext, grid, key):
                 break
         take += 1
 
+def decryption(ciphertext, grid, key):
+    """Decrypts ciphertext encrypted with the encrypt function, given a key"""
+    # counter for which sub-list letters will be appended to
+    lst = 0
+    # loop to write plaintext to grid
+    for letter in ciphertext:
+        # puts letter into grid
+        grid[lst].append(letter)
+        # moves to next row after all the columns are filled in
+        if math.ceil(len(ciphertext)/key) == len(grid[lst]):
+            lst += 1
+    print(grid)
 
+def framework():
+    """Puts together the above functions into a cohesive program capable of encryption and decryption"""
+    # asks user whether we're encrypting or decrypting, what the message is, and what the key is
+    cryption = cipher_details()
+    text = ask()
+    key = keymaker(len(text))
+    # creates grid for en/decryption
+    G = grid_gen(text, key, cryption)
+    if cryption == 'E':
+        encryption(text, G, key)
+    elif cryption == 'D':
+        decryption(text, G, key)
 
+framework()
 
-
-
-G = grid_gen("Hello there world", 3)
-encryption("Hello there world", G, 3)
