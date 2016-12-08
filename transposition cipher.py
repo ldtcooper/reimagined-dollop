@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import numpy as np
-
 # modified from caesar shift program
 def ask():
     """Function to ask for a piece of plaintext, turn its letters into capital letters, and remove spaces"""
@@ -37,17 +35,13 @@ def keymaker (text_length):
             continue
         return key
 
-def rowgen (plaintext, key):
-    """To determine how many rows a grid needs to encrypt the full message"""
-    rows = 1
-    # loop to determine number of columns
-    while key * rows < len(plaintext):
-        rows += 1
-    return rows
-
-
-
-# array size format: (rows, columns)
-def encrypt(plaintext, key, row):
-    np.zeroes(1, key)
+def grid_gen(plaintext, key):
+    """Creates a list of lists to do the encryption"""
+    grid = []
+    while True:
+        grid.append([])
+        if len(grid) * key < len(plaintext):
+            continue
+        else:
+            return len(grid)
 
