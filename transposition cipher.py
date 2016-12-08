@@ -43,5 +43,18 @@ def grid_gen(plaintext, key):
         if len(grid) * key < len(plaintext):
             continue
         else:
-            return len(grid)
+            return grid
+
+def encryption(plaintext, grid, key):
+    """Encrypts the plaintext using a grid of a size determined by the grid_gen function"""
+    # counter for which sub-list letters will be appended to
+    lst =0
+    for letter in plaintext:
+        # puts letters into grid
+        grid[lst].append(letter)
+        # moves to the next row after all the columns are filled in
+        if len(grid[lst]) == key:
+            lst += 1
+    print(grid)
+
 
