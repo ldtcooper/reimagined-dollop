@@ -95,7 +95,23 @@ def decryption(ciphertext, grid, key):
         # moves to next row after all the columns are filled in
         if math.ceil(len(ciphertext)/key) == len(grid[lst]):
             lst += 1
-    print(grid)
+    # empty list for decrypted text to be put into
+    text_list = []
+    # counter for which column the function will draw letters from
+    take = 0
+    # loop to read decryted text out of grid
+    while len(text_list) < len(ciphertext):
+        # iterates through items of grid
+        for elem in grid:
+            try:
+                text_list.append(elem[take])
+            # if the function finds a list with too few indices, it will know that it has reached the end of the message
+            except IndexError:
+                print(''.join(text_list))
+                break
+        take += 1
+
+
 
 def framework():
     """Puts together the above functions into a cohesive program capable of encryption and decryption"""
