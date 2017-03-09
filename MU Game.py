@@ -43,4 +43,39 @@ def IV(string):
     return finish_list
 
 
+# function to derive theorems based on the above rules
+def derivation(theorem_dict, count):
+    # dictionary to keep track of new theorems
+    new_theorem_dict = {}
+    # iterates through the dictionary of theorems and applies rules
+    for elem in theorem_dict:
+        # condition for rule 1
+        if elem[-1] == 'I':
+            theorem = I(elem)
+            new_theorem_dict[theorem] = theorem_dict[elem] + '1'
+        # rule 2 can always run
+        theorem = II(elem)
+        new_theorem_dict[theorem] = theorem_dict[elem] + '2'
+        # condition for rule 3
+        if 'III' in elem:
+            # warning, this time theorem is a list!
+            theorem = III(elem)
+            # iterates through each possible theorem produced by rule 3
+            for string in theorem:
+                new_theorem_dict[string] = theorem_dict[elem] + '3'
+        # condition for rule 4
+        if 'UU' in elem:
+            # warning, this time theorem is a list!
+            theorem = IV(elem)
+            for string in theorem:
+                new_theorem_dict[string] = theorem_dict[elem] + '4'
+    if 'MU' in new_theorem_dict:
+        print("Sucess after {0} rounds! Theorem 'MU' derived with the steps {1}".format(count, new_theorem_dict['MU']))
+    else:
+        print("No 'MU' in round {0} - Trying again".format(count))
+        derivation(new_theorem_dict, count+1)
+
+# given 'MI', prove 'MU'
+derivation({'MI':'G'}, 1)
+
 
